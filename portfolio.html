@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อภิรักษ์ คุลีหา - Learning Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1f3a;
+            --accent: #4a9eff;
+            --secondary: #6b7fda;
+            --tertiary: #8b9dc3;
+            --bg: #f5f7fa;
+            --card: #ffffff;
+            --text: #2c3e50;
+            --text-muted: #6c757d;
+            --glow: rgba(74, 158, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.08;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--tertiary) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--accent) 0%, transparent 50%),
+                radial-gradient(circle at 40% 90%, var(--secondary) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 3rem;
+            position: relative;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .profile-section {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .profile-image-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            box-shadow: 0 8px 24px rgba(74, 158, 255, 0.3);
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .upload-btn-wrapper {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+        }
+
+        .upload-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid var(--card);
+            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.4);
+            transition: all 0.3s;
+            font-size: 1.5rem;
+        }
+
+        .upload-btn:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .upload-btn-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 40px var(--glow);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        /* Section styling */
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid rgba(74, 158, 255, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary), var(--tertiary));
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+
+        .section:hover::before {
+            opacity: 0.05;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--accent), var(--secondary));
+            border-radius: 4px;
+        }
+
+        /* Skills grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, rgba(74, 158, 255, 0.08), rgba(107, 127, 218, 0.08));
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(74, 158, 255, 0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(74, 158, 255, 0.25);
+            border-color: var(--secondary);
+            background: linear-gradient(135deg, rgba(74, 158, 255, 0.12), rgba(107, 127, 218, 0.12));
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Projects */
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .project-item {
+            background: rgba(74, 158, 255, 0.04);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s;
+        }
+
+        .project-item:hover {
+            background: rgba(74, 158, 255, 0.08);
+            transform: translateX(10px);
+            border-left-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.15);
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .add-project-btn {
+            margin-top: 1rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--accent), var(--tertiary));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        .add-project-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        /* Statement */
+        .statement-box {
+            background: linear-gradient(135deg, rgba(74, 158, 255, 0.08), rgba(107, 127, 218, 0.08));
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid rgba(74, 158, 255, 0.3);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+            font-style: italic;
+            position: relative;
+        }
+
+        .statement-box::before,
+        .statement-box::after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--accent);
+            opacity: 0.2;
+            position: absolute;
+        }
+
+        .statement-box::before {
+            top: -10px;
+            left: 10px;
+        }
+
+        .statement-box::after {
+            bottom: -30px;
+            right: 10px;
+        }
+
+        /* Form styling */
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--card);
+            border: 1px solid rgba(74, 158, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: 'Sarabun', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .name {
+                font-size: 2.5rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+
+        /* Progress indicator */
+        .progress-section {
+            background: rgba(74, 158, 255, 0.04);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .progress-item {
+            margin-bottom: 1rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(74, 158, 255, 0.15);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            border-radius: 4px;
+            transition: width 1s ease-out;
+            animation: fillProgress 1.5s ease-out;
+        }
+
+        @keyframes fillProgress {
+            from { width: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <header>
+            <div class="profile-section">
+                <div class="profile-image-container">
+                    <div class="profile-image" id="profileImage">
+                        <span>👤</span>
+                    </div>
+                    <div class="upload-btn-wrapper">
+                        <div class="upload-btn">📷</div>
+                        <input type="file" accept="image/*" onchange="loadProfileImage(event)">
+                    </div>
+                </div>
+            </div>
+            <h1 class="name">อภิรักษ์ คุลีหา</h1>
+            <p class="subtitle">IT Student | Web Developer | Tech Enthusiast</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>🎓</span>
+                    <span>มหาวิทยาลัยราชภัฏอุดรธานี</span>
+                </div>
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>68040233137@udru.ac.th</span>
+                </div>
+                <div class="contact-item">
+                    <span>🎂</span>
+                    <span>21 ปี</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="section">
+            <h2 class="section-title">คำนำ</h2>
+            <div class="statement-box">
+                มีความตั้งใจที่จะเรียนไอที พัฒนาทักษะด้านเทคโนโลยี และสร้างสรรค์ผลงานที่มีคุณค่า เพื่อก้าวสู่การเป็นนักพัฒนาซอฟต์แวร์มืออาชีพในอนาคต
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">ทักษะของฉัน</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🌐</div>
+                    <div class="skill-name">HTML</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎨</div>
+                    <div class="skill-name">CSS</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚡</div>
+                    <div class="skill-name">JavaScript</div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <h3 style="margin-bottom: 1.5rem; color: var(--accent);">ระดับทักษะ</h3>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>HTML</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>CSS</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>JavaScript</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">ผลงานของฉัน</h2>
+            <div class="project-list" id="projectList">
+                <div class="project-item">
+                    <div class="project-title">เพิ่มผลงานแรกของคุณ</div>
+                    <div class="project-desc">คลิกปุ่มด้านล่างเพื่อเพิ่มโปรเจกต์และผลงานของคุณ</div>
+                </div>
+            </div>
+            <button class="add-project-btn" onclick="showProjectForm()">➕ เพิ่มผลงาน</button>
+
+            <div id="projectForm" class="hidden" style="margin-top: 2rem; padding: 2rem; background: rgba(74, 158, 255, 0.04); border-radius: 12px; border: 1px solid rgba(74, 158, 255, 0.2);">
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">เพิ่มผลงานใหม่</h3>
+                <input type="text" id="projectTitle" placeholder="ชื่อโปรเจกต์">
+                <textarea id="projectDesc" rows="4" placeholder="รายละเอียดโปรเจกต์"></textarea>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="add-project-btn" onclick="addProject()">บันทึก</button>
+                    <button class="add-project-btn" style="background: linear-gradient(135deg, #95a5a6, #b8c6db);" onclick="hideProjectForm()">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">เป้าหมายการเรียนรู้</h2>
+            <div class="project-list">
+                <div class="project-item">
+                    <div class="project-title">🎯 ระยะสั้น (3-6 เดือน)</div>
+                    <div class="project-desc">เชี่ยวชาญ React และ Node.js เพื่อพัฒนา Full-stack Web Application</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">🚀 ระยะกลาง (6-12 เดือน)</div>
+                    <div class="project-desc">สร้างโปรเจกต์ส่วนตัว และเริ่มหาประสบการณ์ฝึกงาน</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">⭐ ระยะยาว (1-2 ปี)</div>
+                    <div class="project-desc">เป็น Full-stack Developer มืออาชีพ และพัฒนาแอปพลิเคชันที่มีผู้ใช้งานจริง</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let projects = [];
+
+        function loadProfileImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const profileImage = document.getElementById('profileImage');
+                    profileImage.innerHTML = `<img src="${e.target.result}" alt="Profile">`;
+                    // Save to localStorage
+                    localStorage.setItem('profileImage', e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Load saved profile image on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedImage = localStorage.getItem('profileImage');
+            if (savedImage) {
+                const profileImage = document.getElementById('profileImage');
+                profileImage.innerHTML = `<img src="${savedImage}" alt="Profile">`;
+            }
+        });
+
+        function showProjectForm() {
+            document.getElementById('projectForm').classList.remove('hidden');
+        }
+
+        function hideProjectForm() {
+            document.getElementById('projectForm').classList.add('hidden');
+            document.getElementById('projectTitle').value = '';
+            document.getElementById('projectDesc').value = '';
+        }
+
+        function addProject() {
+            const title = document.getElementById('projectTitle').value;
+            const desc = document.getElementById('projectDesc').value;
+
+            if (title && desc) {
+                const projectList = document.getElementById('projectList');
+                
+                // Clear placeholder if it's the first project
+                if (projects.length === 0) {
+                    projectList.innerHTML = '';
+                }
+
+                const projectItem = document.createElement('div');
+                projectItem.className = 'project-item';
+                projectItem.innerHTML = `
+                    <div class="project-title">${title}</div>
+                    <div class="project-desc">${desc}</div>
+                `;
+                
+                projectList.appendChild(projectItem);
+                projects.push({ title, desc });
+
+                hideProjectForm();
+            } else {
+                alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+            }
+        }
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
